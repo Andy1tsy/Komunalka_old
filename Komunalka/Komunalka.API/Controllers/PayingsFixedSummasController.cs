@@ -12,48 +12,48 @@ namespace Komunalka.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class PayingsFixedSummasController : ControllerBase
     {
         private readonly KomunalContext _context;
 
-        public CustomersController(KomunalContext context)
+        public PayingsFixedSummasController(KomunalContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/PayingsFixedSummas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
+        public async Task<ActionResult<IEnumerable<PayingFixedSumma>>> GetPayingFixedSumma()
         {
-            return await _context.Customer.ToListAsync();
+            return await _context.PayingFixedSumma.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/PayingsFixedSummas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<PayingFixedSumma>> GetPayingFixedSumma(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
+            var payingFixedSumma = await _context.PayingFixedSumma.FindAsync(id);
 
-            if (customer == null)
+            if (payingFixedSumma == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return payingFixedSumma;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/PayingsFixedSummas/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutPayingFixedSumma(int id, PayingFixedSumma payingFixedSumma)
         {
-            if (id != customer.Id)
+            if (id != payingFixedSumma.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(payingFixedSumma).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace Komunalka.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!PayingFixedSummaExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace Komunalka.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/PayingsFixedSummas
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<PayingFixedSumma>> PostPayingFixedSumma(PayingFixedSumma payingFixedSumma)
         {
-            _context.Customer.Add(customer);
+            _context.PayingFixedSumma.Add(payingFixedSumma);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (CustomerExists(customer.Id))
+                if (PayingFixedSummaExists(payingFixedSumma.Id))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace Komunalka.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return CreatedAtAction("GetPayingFixedSumma", new { id = payingFixedSumma.Id }, payingFixedSumma);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/PayingsFixedSummas/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Customer>> DeleteCustomer(int id)
+        public async Task<ActionResult<PayingFixedSumma>> DeletePayingFixedSumma(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
-            if (customer == null)
+            var payingFixedSumma = await _context.PayingFixedSumma.FindAsync(id);
+            if (payingFixedSumma == null)
             {
                 return NotFound();
             }
 
-            _context.Customer.Remove(customer);
+            _context.PayingFixedSumma.Remove(payingFixedSumma);
             await _context.SaveChangesAsync();
 
-            return customer;
+            return payingFixedSumma;
         }
 
-        private bool CustomerExists(int id)
+        private bool PayingFixedSummaExists(int id)
         {
-            return _context.Customer.Any(e => e.Id == id);
+            return _context.PayingFixedSumma.Any(e => e.Id == id);
         }
     }
 }

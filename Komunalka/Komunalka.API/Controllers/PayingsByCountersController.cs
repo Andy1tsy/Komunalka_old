@@ -12,48 +12,48 @@ namespace Komunalka.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class PayingsByCountersController : ControllerBase
     {
         private readonly KomunalContext _context;
 
-        public CustomersController(KomunalContext context)
+        public PayingsByCountersController(KomunalContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/PayingsByCounters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
+        public async Task<ActionResult<IEnumerable<PayingByCounter>>> GetPayingByCounter()
         {
-            return await _context.Customer.ToListAsync();
+            return await _context.PayingByCounter.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/PayingsByCounters/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<PayingByCounter>> GetPayingByCounter(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
+            var payingByCounter = await _context.PayingByCounter.FindAsync(id);
 
-            if (customer == null)
+            if (payingByCounter == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return payingByCounter;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/PayingsByCounters/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutPayingByCounter(int id, PayingByCounter payingByCounter)
         {
-            if (id != customer.Id)
+            if (id != payingByCounter.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(payingByCounter).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace Komunalka.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!PayingByCounterExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace Komunalka.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/PayingsByCounters
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<PayingByCounter>> PostPayingByCounter(PayingByCounter payingByCounter)
         {
-            _context.Customer.Add(customer);
+            _context.PayingByCounter.Add(payingByCounter);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (CustomerExists(customer.Id))
+                if (PayingByCounterExists(payingByCounter.Id))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace Komunalka.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return CreatedAtAction("GetPayingByCounter", new { id = payingByCounter.Id }, payingByCounter);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/PayingsByCounters/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Customer>> DeleteCustomer(int id)
+        public async Task<ActionResult<PayingByCounter>> DeletePayingByCounter(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
-            if (customer == null)
+            var payingByCounter = await _context.PayingByCounter.FindAsync(id);
+            if (payingByCounter == null)
             {
                 return NotFound();
             }
 
-            _context.Customer.Remove(customer);
+            _context.PayingByCounter.Remove(payingByCounter);
             await _context.SaveChangesAsync();
 
-            return customer;
+            return payingByCounter;
         }
 
-        private bool CustomerExists(int id)
+        private bool PayingByCounterExists(int id)
         {
-            return _context.Customer.Any(e => e.Id == id);
+            return _context.PayingByCounter.Any(e => e.Id == id);
         }
     }
 }

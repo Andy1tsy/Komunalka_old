@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Komunalka.DAL.KomunalContext;
-using Komunalka.DAL.Model;
+using Komunalka.DAL.KomunalDbContext;
+using Komunalka.DAL.Models;
 
 namespace Komunalka.API.Controllers
 {
